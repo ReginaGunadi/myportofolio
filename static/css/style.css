@@ -5,12 +5,12 @@
 }
 
 :root {
-    --ink: #1c1917;
-    --paper: #faf6f0;
-    --accent: #d95d39;
-    --accent-dark: #a8442a;
-    --line: #e3d9c9;
-    --text-muted: #6b6459;
+    --ink: #f7f7f7;         
+    --paper: #0f0f0f;       
+    --accent: #30353f;      
+    --accent-dark: #f3db70; 
+    --line: #30353f;        
+    --text-muted: #c8c8c8;  
     --radius: 4px;
 }
 
@@ -21,6 +21,13 @@ body {
     line-height: 1.6;
 }
 
+main {
+    background-image: url('static/img/Wallpaper_Website.jpg');
+    background-repeat: repeat; 
+}
+
+
+
 h1, .brand {
     font-family: "Space Grotesk", -apple-system, sans-serif;
 }
@@ -30,7 +37,6 @@ h1, .brand {
     margin: 0 auto;
     padding: 0 1.5rem;
 }
-
 
 
 .site-header {
