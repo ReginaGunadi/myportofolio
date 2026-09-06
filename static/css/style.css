@@ -6,11 +6,12 @@
 
 :root {
     --ink: #f7f7f7;         
-    --paper: #0f0f0f;       
+    --paper: #010101;       
     --accent: #30353f;      
     --accent-dark: #f3db70; 
     --line: #30353f;        
-    --text-muted: #c8c8c8;  
+    --text-muted: #ffffff;  
+    --hovering: #474951;
     --radius: 4px;
 }
 
@@ -21,26 +22,14 @@ body {
     line-height: 1.6;
 }
 
-main {
-    background-image: url('static/img/Wallpaper_Website.jpg');
-    background-repeat: repeat; 
-}
-
-
-
-h1, .brand {
-    font-family: "Space Grotesk", -apple-system, sans-serif;
+.site-header {
+    border-bottom: 1px solid var(--line);
 }
 
 .container {
     max-width: 960px;
     margin: 0 auto;
     padding: 0 1.5rem;
-}
-
-
-.site-header {
-    border-bottom: 1px solid var(--line);
 }
 
 .site-header .container {
@@ -57,6 +46,10 @@ h1, .brand {
     text-decoration: none;
 }
 
+h1, .brand {
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+}
+
 .site-header nav {
     display: flex;
     gap: 2rem;
@@ -69,9 +62,10 @@ h1, .brand {
 }
 
 
-
 .hero {
     padding: 4.5rem 0 5rem;
+    background-image: url("/static/img/Wallpaper_Website.png");
+    height: 45rem;
 }
 
 .hero-grid {
@@ -87,10 +81,6 @@ h1, .brand {
     grid-area: identity;
 }
 
-.hero-details {
-    grid-area: details;
-}
-
 .hero-kicker {
     font-size: 0.85rem;
     letter-spacing: 0.08em;
@@ -98,6 +88,38 @@ h1, .brand {
     color: var(--accent-dark);
     font-weight: 700;
     margin-bottom: 0.75rem;
+}
+
+.hero-photo {
+    grid-area: photo;
+    align-self: center;
+    position: relative;
+}
+
+.photo-block {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    width: 100%;
+    height: 100%;
+    background-color: var(--accent);
+    border-radius: var(--radius);
+    z-index: 0;
+}
+
+.avatar {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 3px solid var(--ink);
+} 
+
+.hero-details {
+    grid-area: details;
 }
 
 .hero-identity h1 {
@@ -109,9 +131,12 @@ h1, .brand {
     color: var(--text-muted);
     max-width: 480px;
     margin-bottom: 1.5rem;
+    text-align:justify;
+    font-weight:500;
 }
 
 .meta-list {
+    margin-top: 1.5rem;
     display: flex;
     gap: 2rem;
     margin-bottom: 1.5rem;
@@ -151,33 +176,49 @@ h1, .brand {
     background-color: var(--accent);
 }
 
-.hero-photo {
-    grid-area: photo;
-    align-self: center;
-    position: relative;
+
+.section-title-experience {
+    padding: 3.0rem 0rem 0rem 0rem;
+    text-align: center;
+    font-size: 3.0rem;
 }
 
-.photo-block {
-    position: absolute;
-    top: 1.25rem;
-    left: 1.25rem;
-    width: 100%;
-    height: 100%;
-    background-color: var(--accent);
+.experience article {
+    width: 85%;
+    background-color: var(--line);
     border-radius: var(--radius);
-    z-index: 0;
+    padding: 3rem 2rem;
+    margin: 3rem auto;
+    align-items: center;
+    display: flex;
+    gap: 2rem;
 }
 
-.avatar {
-    position: relative;
-    z-index: 1;
-    display: block;
+.experience article:hover {
+    background-color: var(--hovering);
+}
+
+.foto {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.foto img {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4/3;
     object-fit: cover;
     border-radius: var(--radius);
-    border: 3px solid var(--ink);
-} 
+    border: 2px solid var(--ink);;
+}
+
+.explanation {
+    line-height: 2;
+}
+
+.list-explanation {
+    padding: 0rem 2.0rem 0rem 2.0rem;
+    text-align: justify;
+}
 
 
 .site-footer {
@@ -202,5 +243,17 @@ h1, .brand {
 
     .social-links {
         justify-content: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+    .experience article {
+        flex-direction: column;
+        width: 90%;
+        padding: 2rem 1.5rem;
+    }
+
+    .foto {
+        width: 100%;
     }
 }
