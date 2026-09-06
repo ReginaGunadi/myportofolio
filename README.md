@@ -3,7 +3,7 @@ NPM : 2506542852
 Kelas : PBP E
 
 ### Tugas 1
-1. Iya, saya menggunakan beberapa semantik web yaitu section, article, dan figure. 
+1.Iya, saya menggunakan beberapa semantik web yaitu section, article, dan figure. 
 Berdasarkan informasi yang saya dapat di internet (W3School: https://www.w3schools.com/html/html5_semantic_elements.asp), semantik web digunakan untuk memberikan hierarki pada website sehingga hal ini dapat membantu SEO untuk lebih mudah mencari kata kunci saat website dipublikasikan.   
 
 Saya memilih beberapa semantik web tersebut karena: 
@@ -14,7 +14,7 @@ Saya memilih beberapa semantik web tersebut karena:
 Walaupun tampilan website bisa dibuat hanya dengan menggunakan *div* atau *span*, namun penggunaan semantik web membuat hierarki struktur web lebih deskriptif sehingga struktur website dapat lebih mudah direvisi/diubah seiring berjalannya waktu. Contoh: sebuah header akan lebih jelas apabila menggunakan header dibandingkan dengan div.
 
 
-2. Tantangan tata letak yang saya temukan adalah bagaimana caranya membuat informasi masih dapat dibaca dan terstruktur dengan baik walaupun tampilannya menyempit. Pada section Experience, informasinya bersifat memanjang ke samping. Pada awalnya, saya telah mengatur tata letak tampilan mobile dengan: @media (max-width: 600px) dan mengisinya dengan beberapa styling di styles.css. Namun saat dijalankan, penjelasan experiences menjadi berantakan (keluar dari kotak kontainer abu-abu). 
+2.Tantangan tata letak yang saya temukan adalah bagaimana caranya membuat informasi masih dapat dibaca dan terstruktur dengan baik walaupun tampilannya menyempit. Pada section Experience, informasinya bersifat memanjang ke samping. Pada awalnya, saya telah mengatur tata letak tampilan mobile dengan: @media (max-width: 600px) dan mengisinya dengan beberapa styling di styles.css. Namun saat dijalankan, penjelasan experiences menjadi berantakan (keluar dari kotak kontainer abu-abu). 
 
 Saya sempat bingung, namun setelah mencari di internet (W3Schools: https://www.w3schools.com/css/css3_flexbox_container.asp), saya mencoba untuk menambahkan display flex pada container utama (abu-abu) dan flex-direction pada styling media mobile, dan akhirnya berhasil. 
 
@@ -23,7 +23,7 @@ Dalam menentukan elemen yang harus diubah posisi/ukurannya, saya melakukan beber
 - **Balance visual antara teks dan gambar pendukung**: Walaupun teks penjelasan adalah hal yang penting, saya juga tidak ingin mengorbankan ukuran gambar. 
 Maka, atas dua pertimbangan ini, saya memilih untuk membuatnya vertikal turun ke bawah dengan menggunakan flex-direction: column.
 
-3. Secara umum, batasan yang saya rasakan saat mencoba untuk menyajikan informasi pada website statis portofolio ini adalah tampilan website terasa seperti satu dimensi saja dan "tidak hidup" sehingga website terasa kurang interaktif bagi user. Maka, ada beberapa hal yang ingin saya coba terapkan di iterasi tugas selanjutnya, yaitu: 
+3.Secara umum, batasan yang saya rasakan saat mencoba untuk menyajikan informasi pada website statis portofolio ini adalah tampilan website terasa seperti satu dimensi saja dan "tidak hidup" sehingga website terasa kurang interaktif bagi user. Maka, ada beberapa hal yang ingin saya coba terapkan di iterasi tugas selanjutnya, yaitu: 
     - *Scroll animation*: membuat setiap section muncul (fade in) secara perlahan saat user menurunkan halaman ke bawah.
     - *Typing effect*: membuat tulisan seperti dityping pada bagian section About Me.  
     - *Toggle dark/light mode*: warna website saya sekarang cenderung dark mode, namun mungkin ada beberapa user yang lebih nyaman untuk membaca informasi dalam kondisi light mode. 
