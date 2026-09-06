@@ -24,9 +24,9 @@ Dalam menentukan elemen yang harus diubah posisi/ukurannya, saya melakukan beber
 Maka, atas dua pertimbangan ini, saya memilih untuk membuatnya vertikal turun ke bawah dengan menggunakan flex-direction: column.
 
 3.Secara umum, batasan yang saya rasakan saat mencoba untuk menyajikan informasi pada website statis portofolio ini adalah tampilan website terasa seperti satu dimensi saja dan "tidak hidup" sehingga website terasa kurang interaktif bagi user. Maka, ada beberapa hal yang ingin saya coba terapkan di iterasi tugas selanjutnya, yaitu: 
-    - *Scroll animation*: membuat setiap section muncul (fade in) secara perlahan saat user menurunkan halaman ke bawah.
-    - *Typing effect*: membuat tulisan seperti dityping pada bagian section About Me.  
-    - *Toggle dark/light mode*: warna website saya sekarang cenderung dark mode, namun mungkin ada beberapa user yang lebih nyaman untuk membaca informasi dalam kondisi light mode. 
+- *Scroll animation*: membuat setiap section muncul (fade in) secara perlahan saat user menurunkan halaman ke bawah.
+- *Typing effect*: membuat tulisan seperti dityping pada bagian section About Me.  
+- *Toggle dark/light mode*: warna website saya sekarang cenderung dark mode, namun mungkin ada beberapa user yang lebih nyaman untuk membaca informasi dalam kondisi light mode. 
 
 ### Setup Mingguan: 
 Minggu ini saya melakukan: 
