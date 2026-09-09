@@ -182,7 +182,7 @@ h1, .brand {
     padding: 3.0rem 0rem 0rem 0rem;
     text-align: center;
     font-size: 3.0rem;
-}
+} /*done */
 
 .experience article {
     width: 85%;
@@ -276,8 +276,8 @@ h1, .brand {
 }
 
 .experience-section h1 {
-    margin: 0.4rem 0 1.5rem;
-    font-size: 2rem;
+    margin: 0.4rem 0 1.5rem; 
+    font-size: 3.0rem;
 }
 
 .experience-grid {
@@ -288,7 +288,7 @@ h1, .brand {
 
 .experience-card {
     padding: 1.25rem;
-    background-color: #fff;
+    background-color: #5c5656;
     border: 1px solid var(--line);
     border-radius: var(--radius);
 }
@@ -307,7 +307,7 @@ h1, .brand {
 
 .experience-description,
 .empty-state {
-    color: var(--text-muted);
+    color: var(--ink);
 }
 
 .experience-status {

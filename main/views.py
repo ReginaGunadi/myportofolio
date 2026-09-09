@@ -10,7 +10,7 @@ def show_main(request):
         "study_program": "S1 Ilmu Komputer",
         "bio": (
             "Undergraduate Computer Science student at Universitas Indonesia. "
-            "Currently exploring data science and machine learning."
+            "Currently exploring data science and machine learning. "
             "A lifelong learner, pianist, math-tech lover and hater."
         ),
     }
