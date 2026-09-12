@@ -22,6 +22,7 @@ body {
     line-height: 1.6;
 }
 
+
 /*Styling header*/
 .site-header {
     border-bottom: 1px solid var(--line);
@@ -62,7 +63,8 @@ h1, .brand {
     font-size: 0.95rem;
 }
 
-/*Styling About Me section*/
+
+/*Styling About Me*/
 .hero {
     padding: 4.5rem 0 5rem;
     background-image: url("/static/img/Wallpaper_Website.png");
@@ -177,49 +179,81 @@ h1, .brand {
     background-color: var(--accent);
 }
 
-/*Styling Experiences Section*/
-.section-title-experience {
-    padding: 3.0rem 0rem 0rem 0rem;
-    text-align: center;
-    font-size: 3.0rem;
-} /*done */
 
-.experience article {
-    width: 85%;
-    background-color: var(--line);
-    border-radius: var(--radius);
-    padding: 3rem 2rem;
-    margin: 3rem auto;
-    align-items: center;
+/*Styling Experiences */
+.experience-section {
+    padding: 2rem 0;
+    border-top: 1px solid var(--line);
+}
+
+.section-kicker {
+    color: var(--accent-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.experience-section h1 {
+    margin: 0.4rem 0 1.5rem; 
+    font-size: 3.0rem;
+}
+
+.experience-grid {
     display: flex;
+    flex-direction: column;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.experience-card {
+    padding: 2rem 2rem;
+    background-color: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0rem;
     gap: 2rem;
 }
 
-.experience article:hover {
+.experience-card:hover {
     background-color: var(--hovering);
 }
 
-.foto {
-    width: 350px;
-    flex-shrink: 0;
+.experience-category {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
-.foto img {
-    width: 100%;
+.experience-card h2 {
+    font-size: 1.25rem;
+}
+
+.experience-description,
+.empty-state {
+    color: var(--ink);
+}
+
+.experience-description{
+    text-align: justify;
+    align-items: center;
+    margin: 0.5rem 0 0 1.5rem;
+    line-height: 1.5rem;
+    font-size: 1rem;
+}
+
+.photo {
+    flex-shrink: 0;
+    width: 37%;
     aspect-ratio: 4/3;
     object-fit: cover;
     border-radius: var(--radius);
-    border: 2px solid var(--ink);;
+    border: 2px solid var(--ink);
 }
 
-.explanation {
-    line-height: 2;
-}
-
-.list-explanation {
-    padding: 0rem 2.0rem 0rem 2.0rem;
-    text-align: justify;
-}
 
 /*Styling Footer*/
 .site-footer {
@@ -228,6 +262,7 @@ h1, .brand {
     font-size: 0.85rem;
     border-top: 1px solid var(--line);
 }
+
 
 /*Styling for handphone view*/
 @media (max-width: 600px) {
@@ -249,69 +284,18 @@ h1, .brand {
 }
 
 @media (max-width: 600px) {
-    .experience article {
+    .experience-card {
         flex-direction: column;
-        width: 90%;
+        width: 100%;
+        height: auto;
         padding: 2rem 1.5rem;
     }
 
-    .foto {
+    .experience-section h1 {
+        font-size: 2.0rem;
+    }
+
+    .photo {
         width: 100%;
     }
-}
-
-
-
-.experience-section {
-    padding: 4rem 0;
-    border-top: 1px solid var(--line);
-}
-
-.section-kicker {
-    color: var(--accent-dark);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.experience-section h1 {
-    margin: 0.4rem 0 1.5rem; 
-    font-size: 3.0rem;
-}
-
-.experience-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1rem;
-}
-
-.experience-card {
-    padding: 1.25rem;
-    background-color: #5c5656;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-}
-
-.experience-category {
-    color: var(--accent-dark);
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.experience-card h2 {
-    margin: 0.5rem 0;
-    font-size: 1.25rem;
-}
-
-.experience-description,
-.empty-state {
-    color: var(--ink);
-}
-
-.experience-status {
-    margin-top: 1rem;
-    font-size: 0.85rem;
-    font-weight: 600;
 }
