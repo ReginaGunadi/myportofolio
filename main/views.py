@@ -7,7 +7,7 @@ def show_main(request):
     context = {
         "name": "Regina Gunadi",
         "npm": "2506542852",
-        "study_program": "S1 Ilmu Komputer",
+        "study_program": "Bachelor of Computer Science",
         "bio": (
             "Undergraduate Computer Science student at Universitas Indonesia. "
             "Currently exploring data science and machine learning. "

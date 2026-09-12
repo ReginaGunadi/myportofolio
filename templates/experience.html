@@ -17,7 +17,7 @@
             <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
             <nav>
                 <a href="{% url 'main:show_main' %}">Profile</a>
-                <a href="{% url 'main:show_experience' %}">Experience</a>
+                <a href="{% url 'main:show_experience' %}">Experiences</a>
             </nav>
         </div>
     </header>
@@ -37,9 +37,9 @@
                             <div class = "experience-details">
                                 <span class="experience-category">
                                     {% if experience.is_ongoing %}
-                                        {{ experience.get_category_display }} : Sedang berlangsung
+                                        {{ experience.get_category_display }} : Ongoing
                                     {% else %}
-                                         {{ experience.get_category_display }}: Selesai
+                                         {{ experience.get_category_display }}: Finished
                                     {% endif %}
                                 </span>
 
@@ -55,7 +55,7 @@
 
                     {% empty %}
                         <p class="empty-state">
-                            Belum ada pengalaman yang ditambahkan.
+                            There are no experiences yet.
                         </p>
                     {% endfor %}
                 </div>
@@ -66,7 +66,7 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>&copy; 2026 {{ name }}. Faculty of Computer Science, Universitas Indonesia.</p>
         </div>
     </footer>
 </body>
