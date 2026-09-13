@@ -25,20 +25,21 @@
 
     <!-- Bagian Awards -->
     <main>
-        <section>
-            <div>
+        <section class="award-section" id="award">
+            <div class="container">
                 <p class="section-kicker">Awards</p>
                 <h1>Collecting Pokemon Cards</h1> 
+                <p class="award-quote"><i>"Success is a journey, not a destination. The doing is often more important than the outcome." </i>- Arthur Ashe</p>
                 
-                <form method="get">
+                <form method="get" class="filter-form" placeholder ="all">
                     {{filter.form.as_p}}
-                    <button type="submit">Filter</button>
+                    <button class= "filter-button" type="submit">Filter</button>
                 </form>
 
                 <div class="award-grid">
-                {% for award in filter.qs %}
+                    {% for award in filter.qs %}
                     <article class="award-card">
-                        <img class = "award-photo" src= {{award.image}} alt= {{experience.title}}>
+                        <img class = "award-photo" src= "{{award.image}}" alt= {{award.title}}>
 
                         <div class = "award-details">
                             <h2>{{award.title}}</h2>
@@ -46,11 +47,11 @@
                         </div>
                     </article>
 
-                {% empty %}
-                    <p class="empty-state">
-                        There are no awards found yet.
-                    </p>
-                {% endfor %}
+                    {% empty %}
+                        <p class="empty-state">
+                            There are no awards found yet.
+                        </p>
+                    {% endfor %}
                 </div>
             </div>
         </section> 
