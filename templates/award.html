@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }} - Portofolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container">
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
+            <nav>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experiences</a>
+                <a href="{% url 'main:show_award' %}">Awards</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Bagian Awards -->
+    <main>
+        <section>
+            <div>
+                <p class="section-kicker">Awards</p>
+                <h1>Collecting Pokemon Cards</h1> 
+                
+                <form method="get">
+                    {{filter.form.as_p}}
+                    <button type="submit">Filter</button>
+                </form>
+
+                <div class="award-grid">
+                {% for award in filter.qs %}
+                    <article class="award-card">
+                        <img class = "award-photo" src= {{award.image}} alt= {{experience.title}}>
+
+                        <div class = "award-details">
+                            <h2>{{award.title}}</h2>
+                            <p>{{award.description}}</p>
+                        </div>
+                    </article>
+
+                {% empty %}
+                    <p class="empty-state">
+                        There are no awards found yet.
+                    </p>
+                {% endfor %}
+                </div>
+            </div>
+        </section> 
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 {{ name }}. Faculty of Computer Science, Universitas Indonesia.</p>
+        </div>
+    </footer>
+</body>
+</html>

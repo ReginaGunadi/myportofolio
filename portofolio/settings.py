@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'main'
 ]
 
@@ -110,6 +111,12 @@ else:
         }
     }
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://regina-gunadi-myportofolio.pws.cs.ui.ac.id",
+]
+
+CSRF_COOKIE_SECURE    = True
+SESSION_COOKIE_SECURE = True
 
 
 # Password validation
