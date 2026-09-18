@@ -43,7 +43,7 @@ class ExperienceForm(ModelForm):
             ),
             "thumbnail": URLInput(
                 attrs={
-                    "placeholder": "https://github.com/ReginaGunadi/regina",
+                    "placeholder": "https://www.google.com/",
                 }
             ),
             "started_at": TextInput(
@@ -96,7 +96,7 @@ class AwardForm(ModelForm):
             ),
             "image": URLInput(
                 attrs={
-                    "placeholder": "https://github.com/ReginaGunadi/regina",
+                    "placeholder": "https://www.google.com/",
                 }
             ),
         }

@@ -15,20 +15,9 @@
                  <div class="project-header">
                    <h1>Collecting Pokemon Cards</h1> 
                     <p class="award-quote"><i>"Success is a journey, not a destination. The doing is often more important than the outcome." </i>- Arthur Ashe</p>
-                    <a href="{% url 'main:create_award' %}"
-                       class="button award-add-button">
-                        <span aria-hidden="true">+</span>
-                        Add Award
-                    </a>
                 </div>
 
-                
-                <form method="get" class="filter-form" placeholder ="all">
-                    {{filter.form.as_p}}
-                    <button class= "filter-button" type="submit">Filter</button>
-                </form>
-
-                 <form method="get"
+                <form method="get"
                       action="{% url 'main:show_award' %}"
                       class="award-search">
                     <input type="search"
@@ -38,6 +27,12 @@
                            class="award-search__input"
                            aria-label="Search based on award name">
                     <button type="submit" class="button">Search</button>
+
+                    <a href="{% url 'main:create_award' %}"
+                       class="button award-add-button">
+                        <span aria-hidden="true">+</span>
+                        Add Award
+                    </a>
                 </form>
 
                 <div class="award-grid">

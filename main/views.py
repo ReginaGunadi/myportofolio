@@ -2,7 +2,6 @@ from django.shortcuts import render
 
 from main.models import Experience
 from main.models import Award
-from main.filters import AwardFilter
 from main.forms import ExperienceForm, AwardForm
 
 from django.contrib import messages
@@ -86,6 +85,7 @@ def delete_experience(request, experience_id):
 
     return redirect("main:show_experience")
 
+
 def get_experience_json(request):
     title_query = request.GET.get("title", "").strip()
     experience = Experience.objects.all()
@@ -95,6 +95,7 @@ def get_experience_json(request):
 
     experience_json = serializers.serialize("json", experience)
     return HttpResponse(experience_json, content_type="application/json")
+
 
 
 def create_award(request):
@@ -121,6 +122,7 @@ def get_award_json(request):
 
     award_json = serializers.serialize("json", award)
     return HttpResponse(award_json, content_type="application/json")
+
 
 def delete_award(request, award_id):
     award = get_object_or_404(Award, pk=award_id)

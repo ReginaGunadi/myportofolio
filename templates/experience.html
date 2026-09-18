@@ -11,18 +11,14 @@
         <section class="experience-section" id="experience">
             <div class="container">
                 <p class="section-kicker">Experiences</p>
-                <div class="project-header">
+                <div class="experience-header">
                     <h1>My Journey As CSUI So Far...</h1>
-                    <a href="{% url 'main:create_experience' %}"
-                       class="button project-add-button">
-                        <span aria-hidden="true">+</span>
-                        Add Experience
-                    </a>
                 </div>
 
                 <form method="get"
                       action="{% url 'main:show_experience' %}"
                       class="experience-search">
+                    
                     <input type="search"
                            name="title"
                            value="{{ title_query }}"
@@ -30,6 +26,12 @@
                            class="experience-search__input"
                            aria-label="Search based on experience name">
                     <button type="submit" class="button">Search</button>
+
+                    <a href="{% url 'main:create_experience' %}"
+                       class="button experience-add-button">
+                        <span aria-hidden="true">+</span>
+                        Add Experience
+                    </a>
                 </form>
                 
 

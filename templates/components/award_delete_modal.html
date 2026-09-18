@@ -7,6 +7,7 @@
         Delete Award
     </button>
 </p>
+
 <div id="delete-award-{{ award.id }}"
      class="award-delete-modal"
      popover="auto"
@@ -18,6 +19,7 @@
             popovertarget="delete-award-{{ award.id }}"
             popovertargetaction="hide"
             aria-label="Tutup konfirmasi hapus"></button>
+
     <div class="award-delete-modal__content">
         <button type="button"
                 class="award-delete-modal__close"
@@ -29,6 +31,7 @@
             Are you sure you want to delete
             <strong>{{ award.title }}</strong>?
         </p>
+        
         <div class="award-delete-modal__actions">
             <button type="button"
                     class="button button-secondary"
