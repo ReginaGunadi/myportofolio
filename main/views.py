@@ -71,8 +71,9 @@ def create_experience(request):
     context = {
         "name": "Regina Gunadi",
         "form": form,
+        "item_type": "experience",
     }
-    return render(request, "experience_form.html", context)
+    return render(request, "generic_form.html", context)
 
 
 def delete_experience(request, experience_id):
@@ -109,8 +110,9 @@ def create_award(request):
     context = {
         "name": "Regina Gunadi",
         "form": form,
+        "item_type": "award",
     }
-    return render(request, "award_form.html", context)
+    return render(request, "generic_form.html", context)
 
 
 def get_award_json(request):

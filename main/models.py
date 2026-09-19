@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.urls import reverse
 
 class Experience(models.Model):
     EXPERIENCE_CHOICES = [
@@ -27,6 +28,22 @@ class Experience(models.Model):
         return self.ended_at is None
 
     @property
+    def item_type(self):
+        return "experience"
+
+    @property
+    def get_create_new_url(self): 
+        return "main:create_experience"
+
+    @property
+    def get_show_all_url(self): 
+        return "main:show_experience"
+    
+    @property
+    def get_delete_url(self): 
+        return reverse('main:delete_experience', kwargs={'experience_id': self.id})
+
+    @property
     def ambil_isi_list(self):
         return self.description.split("\n")
 
@@ -47,3 +64,19 @@ class Award(models.Model):
     
     def __str__(self):
         return self.title
+
+    @property
+    def item_type(self):
+        return "award"
+
+    @property
+    def get_create_new_item_url(self): 
+        return "main:create_award"
+
+    @property
+    def get_show_all_item_url(self): 
+        return "main:show_award"
+
+    @property
+    def get_delete_url(self): 
+        return reverse('main:delete_award', kwargs={'award_id': self.id})

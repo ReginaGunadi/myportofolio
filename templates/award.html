@@ -50,7 +50,7 @@
                                 {% if award.award_url %}
                                     <a href="{{ award.award_url }}" class="button">Look Awards</a>
                                 {% endif %}
-                                {% include "components/award_delete_modal.html" with award=award %}
+                                {% include "components/generic_delete_modal.html" with item=award item_type="award" %}
                             </div>
                         </div>
                     </article>

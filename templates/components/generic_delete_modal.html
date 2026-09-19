@@ -1,0 +1,46 @@
+<p class="{{ item_type }}-status">
+    <button type="button"
+            class="button button-danger"
+            popovertarget="delete-{{ item_type }}-{{ item.id }}"
+            aria-label="Hapus {{ item.title }}"
+            title="Delete {{ item_type }}">
+        Delete {{ item_type }}
+    </button>
+</p>
+
+<div id="delete-{{item_type}}-{{ item.id }}"
+     class="{{item_type}}-delete-modal"
+     popover="auto"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="delete-{{item_type}}-title-{{ item.id }}">
+    <button type="button"
+            class="{{item_type}}-delete-modal__backdrop"
+            popovertarget="delete-{{item_type}}-{{ item.id }}"
+            popovertargetaction="hide"
+            aria-label="Tutup konfirmasi hapus"></button>
+
+    <div class="{{item_type}}-delete-modal__content">
+        <button type="button"
+                class="{{item_type}}-delete-modal__close"
+                popovertarget="delete-{{item_type}}-{{ item.id }}"
+                popovertargetaction="hide"
+                aria-label="Tutup konfirmasi hapus">×</button>
+        <h2 id="delete-{{item_type}}-title-{{ item.id }}">Delete {{item_type}}?</h2>
+        <p>
+            Are you sure you want to delete
+            <strong>{{ item.title }}</strong>?
+        </p>
+        
+        <div class="{{item_type}}-delete-modal__actions">
+            <button type="button"
+                    class="button button-secondary"
+                    popovertarget="delete-{{item_type}}-{{ item.id }}"
+                    popovertargetaction="hide">Cancel</button>
+            <form method="post" action="{{item.get_delete_url}}">
+                {% csrf_token %}
+                <button type="submit" class="button button-danger">Yes, delete</button>
+            </form>
+        </div>
+    </div>
+</div>
