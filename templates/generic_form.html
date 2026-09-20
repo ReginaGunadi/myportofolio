@@ -6,9 +6,14 @@
     <main>
         <section class="{{ item_type }}-section">
             <div class="container">
-                <h1>Add New {{ item_type|title }}</h1>
+
+                {% if action_type == "create"%} 
+                    <h1>Add New {{ item_type|title }}</h1>
+                {% else %}
+                    <h1>Update {{ item_type|title }}</h1>
+                {% endif %}
+                
                 <form method="post"
-                      action="{{ item.get_create_new_item_url }}"
                       class="{{ item_type }}-form">
                     {% csrf_token %}
                     {% for field in form %}
@@ -20,8 +25,13 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="button">Add {{ item_type|title }}</button>
-                    <a href="{{item.show_all_item_url}}" class="button button-secondary">Cancel</a>
+                    <button type="submit" class="button">
+                        {% if action_type == "create" %} 
+                            Add {{ item_type|title }}</button>
+                        {% else %}
+                            Edit {{ item_type|title }}</button>
+                        {% endif %}
+                    <a href="{{get_show_all_item_url}}" class="button button-secondary">Cancel</a>
                 </form>
             </div>
         </section>

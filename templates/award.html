@@ -38,7 +38,7 @@
                 <div class="award-grid">
                     {% for award in award_list %}
                     <article class="award-card">
-                        <img class = "award-photo" src= "{{award.image}}" alt= {{award.title}}>
+                        <img class = "award-photo" src= "{{award.image}}" alt= "{{award.title}}">
 
                         <div class = "award-details">
                             <h2>{{award.title}}</h2>
@@ -47,6 +47,10 @@
 
                         <div class="award-card-actions">
                             <div class="award-actions">
+                                <a href="{{award.get_edit_url }}"
+                                    class="button award-update-button">
+                                    Update Award
+                                </a>
                                 {% if award.award_url %}
                                     <a href="{{ award.award_url }}" class="button">Look Awards</a>
                                 {% endif %}

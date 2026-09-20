@@ -59,6 +59,10 @@
 
                                 <div class="experience-card-actions">
                                     <div class="experience-actions">
+                                        <a href="{{experience.get_edit_url }}"
+                                            class="button experience-update-button">
+                                            Update Experience
+                                        </a>
                                         {% if experience.experience_url %}
                                             <a href="{{ experience.experience_url }}" class="button">Look Experience</a>
                                         {% endif %}

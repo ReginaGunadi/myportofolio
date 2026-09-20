@@ -32,16 +32,20 @@ class Experience(models.Model):
         return "experience"
 
     @property
-    def get_create_new_url(self): 
-        return "main:create_experience"
+    def get_create_new_item_url(self): 
+        return reverse("main:create_experience")
 
     @property
-    def get_show_all_url(self): 
-        return "main:show_experience"
+    def get_show_all_item_url(self): 
+        return reverse("main:show_experience")
     
     @property
     def get_delete_url(self): 
-        return reverse('main:delete_experience', kwargs={'experience_id': self.id})
+        return reverse("main:delete_experience", kwargs={"experience_id": self.id})
+
+    @property
+    def get_edit_url(self):
+        return reverse("main:edit_experience", kwargs={"experience_id": self.id})
 
     @property
     def ambil_isi_list(self):
@@ -71,12 +75,16 @@ class Award(models.Model):
 
     @property
     def get_create_new_item_url(self): 
-        return "main:create_award"
+        return reverse("main:create_award")
 
     @property
     def get_show_all_item_url(self): 
-        return "main:show_award"
+        return reverse("main:show_award")
 
     @property
     def get_delete_url(self): 
         return reverse('main:delete_award', kwargs={'award_id': self.id})
+
+    @property
+    def get_edit_url(self):
+        return reverse("main:edit_award", kwargs={"award_id": self.id})

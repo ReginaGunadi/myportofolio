@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
-from main.models import Experience
-from main.models import Award
+from main.models import Experience, Award
 from main.forms import ExperienceForm, AwardForm
 
 from django.contrib import messages
 from django.core import serializers
 from django.http import HttpResponse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 
 def show_main(request):
@@ -72,6 +72,9 @@ def create_experience(request):
         "name": "Regina Gunadi",
         "form": form,
         "item_type": "experience",
+        "action_type": "create", 
+        "get_create_new_item_url": reverse("main:create_experience"),
+        "get_show_all_item_url": reverse("main:show_experience"),
     }
     return render(request, "generic_form.html", context)
 
@@ -98,6 +101,28 @@ def get_experience_json(request):
     return HttpResponse(experience_json, content_type="application/json")
 
 
+def edit_experience(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+    
+    form = ExperienceForm(request.POST or None, instance=experience)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Experience has been edited!")
+        return redirect("main:show_experience")
+
+    context = {
+        "name": "Regina Gunadi",
+        "form": form,
+        "item_type": "experience",
+        "action_type": "edit",
+        "get_create_new_item_url": reverse("main:create_experience"),
+        "get_show_all_item_url": reverse("main:show_experience"),
+    }
+
+    return render(request, "generic_form.html", context)
+
+
 
 def create_award(request):
     form = AwardForm(request.POST or None)
@@ -111,6 +136,9 @@ def create_award(request):
         "name": "Regina Gunadi",
         "form": form,
         "item_type": "award",
+        "action_type": "create",
+        "get_create_new_item_url": reverse("main:create_award"),
+        "get_show_all_item_url": reverse("main:show_award"),
     }
     return render(request, "generic_form.html", context)
 
@@ -135,3 +163,25 @@ def delete_award(request, award_id):
         return redirect("main:show_award")
 
     return redirect("main:show_award")
+
+
+def edit_award(request, award_id):
+    award = get_object_or_404(Award, pk=award_id)
+    
+    form = AwardForm(request.POST or None, instance=award)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Award has been edited!")
+        return redirect("main:show_award")
+
+    context = {
+        "name": "Regina Gunadi",
+        "form": form,
+        "item_type": "award",
+        "action_type": "edit",
+        "get_create_new_item_url": reverse("main:create_award"),
+        "get_show_all_item_url": reverse("main:show_award"),
+    }
+
+    return render(request, "generic_form.html", context)
