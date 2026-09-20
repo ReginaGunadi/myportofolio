@@ -111,10 +111,16 @@ def edit_experience(request, experience_id):
 
 def get_experience_json(request):
     title_query = request.GET.get("title", "").strip()
+    sort_by = request.GET.get("sort", "").strip()
     experience = Experience.objects.all()
 
     if title_query:
         experience = experience.filter(title__icontains=title_query)
+
+    if sort_by == "title_asc":
+        experience = experience.order_by("title")
+    if sort_by == "title_desc":
+        experience = experience.order_by("-title")
 
     experience_json = serializers.serialize("json", experience)
     return HttpResponse(experience_json, content_type="application/json")
@@ -172,10 +178,16 @@ def edit_award(request, award_id):
 
 def get_award_json(request):
     title_query = request.GET.get("title", "").strip()
+    sort_by = request.GET.get("sort", "").strip()
     award = Award.objects.all()
 
     if title_query:
         award = award.filter(title__icontains=title_query)
+
+    if sort_by == "title_asc":
+        award = award.order_by("title")
+    if sort_by == "title_desc":
+        award = award.order_by("-title")
 
     award_json = serializers.serialize("json", award)
     return HttpResponse(award_json, content_type="application/json")

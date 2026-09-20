@@ -314,7 +314,7 @@ h1, .brand {
 
 .experience-search__input, 
 .award-search__input {
-    width: 70%;
+    width: 40%;
     min-width: 0;
     padding: 0.7rem;
     border: 1px solid var(--line);
@@ -620,6 +620,10 @@ h1, .brand {
 
     .experience-delete-modal__actions .button, .award-delete-modal__actions {
         width: 100%;
+        text-align: center;
+    }
+
+    .button.experience-sort, .button.award-sort {
         text-align: center;
     }
 }

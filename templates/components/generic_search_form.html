@@ -7,6 +7,15 @@
            aria-label="Search based on {{ item_type }} name">
     <button type="submit" class="button">Search</button>
 
+    <select name="sort" class= "button {{item_type}}-sort" onchange="this.form.submit()">
+        <option value="title_asc" {% if request.GET.sort == "title_asc" %}selected{% endif %}>
+            {{item_type|title}} name (A-Z)
+        </option>
+        <option value="title_desc" {% if request.GET.sort == "title_desc" %}selected{% endif %}>
+            {{item_type|title}} name (Z-A)
+        </option>
+    </select>
+
     <a href="{{ create_url }}" class="button {{ item_type }}-add-button">
         <span aria-hidden="true">+</span>
         Add {{ item_type|title }}
