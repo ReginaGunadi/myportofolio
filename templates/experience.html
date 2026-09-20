@@ -15,26 +15,10 @@
                     <h1>My Journey As CSUI So Far...</h1>
                 </div>
 
-                <form method="get"
-                      action="{% url 'main:show_experience' %}"
-                      class="experience-search">
-                    
-                    <input type="search"
-                           name="title"
-                           value="{{ title_query }}"
-                           placeholder="Search based on experience name"
-                           class="experience-search__input"
-                           aria-label="Search based on experience name">
-                    <button type="submit" class="button">Search</button>
-
-                    <a href="{% url 'main:create_experience' %}"
-                       class="button experience-add-button">
-                        <span aria-hidden="true">+</span>
-                        Add Experience
-                    </a>
-                </form>
+                {% url 'main:show_experience' as list_url %}
+                {% url 'main:create_experience' as create_url %}
+                {% include "components/generic_search_form.html" with item_type="experience" list_url=list_url create_url=create_url %}
                 
-
                 <div class="experience-grid">
                     {% for experience in experience_list %}
                         <article class="experience-card">
@@ -63,9 +47,6 @@
                                             class="button experience-update-button">
                                             Update Experience
                                         </a>
-                                        {% if experience.experience_url %}
-                                            <a href="{{ experience.experience_url }}" class="button">Look Experience</a>
-                                        {% endif %}
                                         {% include "components/generic_delete_modal.html" with item=experience item_type="experience" %}
                                     </div>
                                 </div>

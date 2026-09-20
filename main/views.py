@@ -78,7 +78,6 @@ def create_experience(request):
     }
     return render(request, "generic_form.html", context)
 
-
 def delete_experience(request, experience_id):
     experience = get_object_or_404(Experience, pk=experience_id)
 
@@ -88,18 +87,6 @@ def delete_experience(request, experience_id):
         return redirect("main:show_experience")
 
     return redirect("main:show_experience")
-
-
-def get_experience_json(request):
-    title_query = request.GET.get("title", "").strip()
-    experience = Experience.objects.all()
-
-    if title_query:
-        experience = experience.filter(title__icontains=title_query)
-
-    experience_json = serializers.serialize("json", experience)
-    return HttpResponse(experience_json, content_type="application/json")
-
 
 def edit_experience(request, experience_id):
     experience = get_object_or_404(Experience, pk=experience_id)
@@ -122,6 +109,15 @@ def edit_experience(request, experience_id):
 
     return render(request, "generic_form.html", context)
 
+def get_experience_json(request):
+    title_query = request.GET.get("title", "").strip()
+    experience = Experience.objects.all()
+
+    if title_query:
+        experience = experience.filter(title__icontains=title_query)
+
+    experience_json = serializers.serialize("json", experience)
+    return HttpResponse(experience_json, content_type="application/json")
 
 
 def create_award(request):
@@ -141,18 +137,6 @@ def create_award(request):
         "get_show_all_item_url": reverse("main:show_award"),
     }
     return render(request, "generic_form.html", context)
-
-
-def get_award_json(request):
-    title_query = request.GET.get("title", "").strip()
-    award = Award.objects.all()
-
-    if title_query:
-        award = award.filter(title__icontains=title_query)
-
-    award_json = serializers.serialize("json", award)
-    return HttpResponse(award_json, content_type="application/json")
-
 
 def delete_award(request, award_id):
     award = get_object_or_404(Award, pk=award_id)
@@ -185,3 +169,13 @@ def edit_award(request, award_id):
     }
 
     return render(request, "generic_form.html", context)
+
+def get_award_json(request):
+    title_query = request.GET.get("title", "").strip()
+    award = Award.objects.all()
+
+    if title_query:
+        award = award.filter(title__icontains=title_query)
+
+    award_json = serializers.serialize("json", award)
+    return HttpResponse(award_json, content_type="application/json")

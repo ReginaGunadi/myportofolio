@@ -1,0 +1,14 @@
+<form method="get" action="{{ list_url }}" class="{{ item_type }}-search">
+    <input type="search"
+           name="title"
+           value="{{ title_query }}"
+           placeholder="Search based on {{ item_type }} name"
+           class="{{ item_type }}-search__input"
+           aria-label="Search based on {{ item_type }} name">
+    <button type="submit" class="button">Search</button>
+
+    <a href="{{ create_url }}" class="button {{ item_type }}-add-button">
+        <span aria-hidden="true">+</span>
+        Add {{ item_type|title }}
+    </a>
+</form>
