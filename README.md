@@ -73,3 +73,22 @@ Strategi prompting yang saya gunakan adalah:
 
 Untuk selengkapnya dapat dilihat di: https://share.gemini.google/KVRQw4bDiGq6
 </div>
+
+
+### Tugas 3
+<div align = "justify">
+
+1. Berdasarkan informasi yang saya dapatkan di internet (https://shahmirprogrammer.medium.com/when-to-use-simple-form-or-model-form-in-django-python-8d6ee4aa769e), kita lebih baik menggunakan ModelForm pada Django karena memiliki beberapa manfaat bawaan, yaitu: 
+- Terintegrasi dengan model yang telah dibuat: Pada model yang telah dibuat di models.py, kita dapat menentukan requirements dari input user, contoh: input harus bentuk URL, tanggal, ada panjang maksimum tertentu, dan sebagainya. ModelForm terintegrasi dengan model, sehingga kita dapat secara otomatis mengecek apakah input user memenuhi kriteria. 
+- Menjaga keamanan data dari SQL Injection dan cross site scripting (XSS): SQL injection adalah peretasan web yang dilakukan dengan cara memasukkan kode SQL yang berbahaya yang dapat menghapus dan mengubah database ke dalam kolom input pengguna website. Hal ini dapat dicegah, karena Django akan menganggap perintah di luar keywords Django sebagai suatu string dan tidak mengeksekusinya. Sementara, cross site scripting adalah melakukan penyisipan kode berbahaya (biasanya kode JavaScript) ke dalam halaman web publik. Django juga mempunyai kemampuan untuk mengubah sintaks HTML yang berbahaya tersebut menjadi tampilan string biasa saja.
+- Mengurangi repetisi kode: dengan membuat ModelForm, bila di masa depan form dibutuhkan di beberapa tempat yang berbeda di halaman web, kita tidak perlu menuliskan kode panjang berulang. 
+
+Untuk meningkatkan keamanan web, kita wajib menambahkan {% csrf_token %} pada form. CSRF token adalah suatu token yang digenerate oleh Django untuk setiap sesi akses user website. Pada saat user melakukan sesi pengisian form, token ini akan menjadi tanda pengenal yang akan dicek oleh server. Bila token yang terdata di server dengan token user session sama, maka data input user akan diterima dan disimpan dalam database.
+
+2. Berdasarkan informasi yang saya dapatkan di internet (https://medium.com/javarevisited/xml-vs-json-why-json-dominates-the-modern-web-7082f8c2edec), JSON lebih diminati karena beberapa keunggulan: 
+- Keterbacaan dan kemudahan penulisan: Sintaks dari JSON lebih mudah untuk dibaca baik orang awam maupun developer pemula, karena mengadaptasi penulisan dari bahasa-bahasa pemrograman lainnya, contoh Python, Java, dan sebagainya. Sementara XML penulisannya menggunakan tag, sehingga mungkin tidak begitu mudah dipahami. 
+- Beberapa program menyediakan built in support untuk JSON: Beberapa bahasa pemrograman seperti Python, Java, dan Go menyediakan built in functions untuk melakukan parsing dan serialisasi (mengekstrak data dari JSON) sehingga lebih mudah dilakukan pemrosesan data dibandingkan dengan XML. 
+- Lebih cepat diproses: Sintaks JSON minimalis dan sederhana, sehingga meminimalisasi pemrosesan bila digunakan dalam website atau aplikasi yang butuh pemrosesan cukup banyak, sementara adanya tag pada XML memperberat pemrosesan tersebut. 
+
+3. Di database, kita menyimpan data dalam bentuk objects. Pada saat user mengirimkan request untuk mengakses data, views.py akan menerima requestnya dan mengakses database. Database akan mengembalikan sekumpulan objek, contoh: experience = Experience.objects.all(). Namun HTML tidak bisa secara mandiri mengakses unsur tiap objek tersebut lalu menampilkannya di halaman web. Maka, kita memerlukan proses serialization terlebih dahulu. Proses ini adalah proses mengubah unsur-unsur tiap objek ke dalam bentuk text yang dapat dibaca dan ditampilkan oleh HTML. Setelah diserialisasi, JSON hasil akan dikirimkan kepada user untuk ditampilkan pada web yang dilihat user. 
+</div>
