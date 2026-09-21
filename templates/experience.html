@@ -47,8 +47,11 @@
                                             class="button experience-update-button">
                                             Update Experience
                                         </a>
-                                        {% include "components/generic_delete_modal.html" with item=experience item_type="experience" %}
-                                    </div>
+                                        {% include "components/experience_star.html" with experience=experience %}
+                                        {% if user.is_superuser %}
+                                            {% include "components/generic_delete_modal.html" with item=experience item_type="experience" %}
+                                        {% endif %}
+                                        </div>
                                 </div>
                             </div>
                         </article>

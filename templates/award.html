@@ -37,8 +37,10 @@
                                     class="button award-update-button">
                                     Update Award
                                 </a>
-                                {% include "components/generic_delete_modal.html" with item=award item_type="award" %}
-                            </div>
+                                {% if user.is_superuser %}
+                                    {% include "components/generic_delete_modal.html" with item=award item_type="award" %}
+                                {% endif %}
+                                </div>
                         </div>
                     </article>
 

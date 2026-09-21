@@ -86,9 +86,26 @@ Untuk selengkapnya dapat dilihat di: https://share.gemini.google/KVRQw4bDiGq6
 Untuk meningkatkan keamanan web, kita wajib menambahkan {% csrf_token %} pada form. CSRF token adalah suatu token yang digenerate oleh Django untuk setiap sesi akses user website. Pada saat user melakukan sesi pengisian form, token ini akan menjadi tanda pengenal yang akan dicek oleh server. Bila token yang terdata di server dengan token user session sama, maka data input user akan diterima dan disimpan dalam database.
 
 2. Berdasarkan informasi yang saya dapatkan di internet (https://medium.com/javarevisited/xml-vs-json-why-json-dominates-the-modern-web-7082f8c2edec), JSON lebih diminati karena beberapa keunggulan: 
-- Keterbacaan dan kemudahan penulisan: Sintaks dari JSON lebih mudah untuk dibaca baik orang awam maupun developer pemula, karena mengadaptasi penulisan dari bahasa-bahasa pemrograman lainnya, contoh Python, Java, dan sebagainya. Sementara XML penulisannya menggunakan tag, sehingga mungkin tidak begitu mudah dipahami. 
-- Beberapa program menyediakan built in support untuk JSON: Beberapa bahasa pemrograman seperti Python, Java, dan Go menyediakan built in functions untuk melakukan parsing dan serialisasi (mengekstrak data dari JSON) sehingga lebih mudah dilakukan pemrosesan data dibandingkan dengan XML. 
-- Lebih cepat diproses: Sintaks JSON minimalis dan sederhana, sehingga meminimalisasi pemrosesan bila digunakan dalam website atau aplikasi yang butuh pemrosesan cukup banyak, sementara adanya tag pada XML memperberat pemrosesan tersebut. 
+- Keterbacaan dan kemudahan penulisan: Sintaks JSON lebih mudah untuk dibaca baik oleh orang awam maupun developer pemula, karena mengadaptasi penulisan dari bahasa-bahasa pemrograman lainnya, contoh Python, Java, dan sebagainya. Sementara penulisan XML menggunakan tag, sehingga mungkin tidak begitu mudah dipahami. 
+- Beberapa program menyediakan built in support untuk JSON: Beberapa bahasa pemrograman seperti Python, Java, dan Go menyediakan built-in functions untuk melakukan parsing dan serialisasi (mengekstrak data dari JSON) sehingga pemrosesan data lebih mudah dilakukan dibandingkan dengan XML. 
+- Lebih cepat diproses: Sintaks JSON minimalis dan sederhana, sehingga dapat meminimalisasi pemrosesan bila digunakan dalam website atau aplikasi yang butuh pemrosesan cepat.  Sementara adanya tag pada XML memperlambat pemrosesan tersebut. 
 
-3. Di database, kita menyimpan data dalam bentuk objects. Pada saat user mengirimkan request untuk mengakses data, views.py akan menerima requestnya dan mengakses database. Database akan mengembalikan sekumpulan objek, contoh: experience = Experience.objects.all(). Namun HTML tidak bisa secara mandiri mengakses unsur tiap objek tersebut lalu menampilkannya di halaman web. Maka, kita memerlukan proses serialization terlebih dahulu. Proses ini adalah proses mengubah unsur-unsur tiap objek ke dalam bentuk text yang dapat dibaca dan ditampilkan oleh HTML. Setelah diserialisasi, JSON hasil akan dikirimkan kepada user untuk ditampilkan pada web yang dilihat user. 
+3. Di database, kita menyimpan data dalam bentuk objects. Pada saat user mengirimkan request untuk mengakses data, views.py akan menerima requestnya dan mengakses database. Database akan mengembalikan sekumpulan objek, contoh: experience = Experience.objects.all(). Namun web sisi user tidak bisa secara mandiri mengakses unsur tiap objek kembalian tersebut lalu menampilkannya di halaman web. Maka, kita memerlukan proses serialization terlebih dahulu. Proses ini adalah proses mengubah unsur-unsur tiap objek ke dalam bentuk text yang dapat dibaca dan ditampilkan. Setelah diserialisasi, JSON hasil akan dikirimkan melalui jaringan kepada user untuk ditampilkan pada web user. 
+
+### Setup Mingguan: 
+Minggu ini saya melakukan: 
+- Merefactor codingan header dan footer menjadi base.html 
+- Menambahkan form dengan fitur add, delete, edit dan delete modal (secara generic) pada Experience dan Award
+- Merefactor search form pada Experience dan Award menjadi generic_search_form.html
+- Menambahkan fitur sort by title ascending dan descending pada Experience dan Award
+- Merapikan styling CSS beberapa fitur baru tambahan yang telah dilist di atas
+
+### Penggunaan AI (AI Disclosure)
+Untuk mengerjakan tugas minggu ini, AI saya gunakan sebagai teman diskusi: validator keputusan, teman debugging dan menjelaskan. Karena minggu ini tugas berfokus pada refactoring kode yang sudah ada, saya cukup banyak bertanya tentang apakah keputusan refactoring saya tepat atau tidak. Contoh: untuk section Experience dan Award sama-sama menggunakan fitur search, dan saya memutuskan bahwa hal tersebut harus direfactor menjadi satu html generic. Namun saya cukup bingung apakah hal tersebut dapat memunculkan error atau tidak karena kedua hal akan mengakses database yang berbeda. 
+Strategi prompting yang saya gunakan adalah:
+- **Mengecek kebenaran keputusan saya**: Saya memberi tahu keputusan saya tentang sesuatu dan bertanya kepada AI untuk memastikan apakah keputusan tersebut benar dan butuh dilakukan (best practice) atau tidak. 
+- **Membantu debugging**: Saya mengirimkan kode yang error disertai dengan hipotesis/analisis mengapa hal tersebut error. Lalu saya meminta AI untuk mengecek apakah pemahaman saya benar atau tidak. 
+- **Membantu menjelaskan**: Setelah mengirimkan kode error, AI memberikan solusi untuk mengatasinya. Saya bertanya kembali ke AI mengapa hal tersebut butuh dilakukan.
+
+Untuk selengkapnya dapat dilihat di: https://share.gemini.google/ewFLojuAo7Z3
 </div>

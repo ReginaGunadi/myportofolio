@@ -16,8 +16,10 @@
         </option>
     </select>
 
-    <a href="{{ create_url }}" class="button {{ item_type }}-add-button">
-        <span aria-hidden="true">+</span>
-        Add {{ item_type|title }}
-    </a>
+    {% if user.is_superuser %}
+        <a href="{{ create_url }}" class="button {{ item_type }}-add-button">
+            <span aria-hidden="true">+</span>
+            Add {{ item_type|title }}
+        </a>
+    {% endif %}
 </form>
