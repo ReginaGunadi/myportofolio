@@ -14,12 +14,12 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied  
 
 
 def show_main(request):
-    last_login = request.COOKIES.get('last_login', 'Belum ada sesi login / Cookie tidak ditemukan')
+    last_login = request.COOKIES.get('last_login', 'No active login session / Cookie not found')
 
     context = {
         "name": "Regina Gunadi",
@@ -34,7 +34,44 @@ def show_main(request):
     }
     return render(request, "index.html", context)
 
+def register(request):
+    form = UserCreationForm(request.POST or None)
 
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Your account has been made. Continue login.")
+        return redirect("main:login")
+
+    context = {
+        "name": "Regina Gunadi",
+        "form": form,
+    }
+    return render(request, "register.html", context)
+
+def login_user(request):
+    form = AuthenticationForm(request, data=request.POST or None)
+
+    if request.method == "POST" and form.is_valid():
+        user = form.get_user()
+        login(request, user)
+        response = redirect("main:show_main")
+        response.set_cookie('last_login', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        return response
+
+    context = {
+        "name": "Regina Gunadi",
+        "form": form,
+    }
+    return render(request, "login.html", context)
+
+def logout_user(request):
+    logout(request)
+    response = redirect("main:show_main")
+    response.delete_cookie('last_login')
+    return response
+
+
+# Experience Section
 def show_experience(request):
     json_response = get_experience_json(request)
 
@@ -52,30 +89,13 @@ def show_experience(request):
     }
     return render(request, "experience.html", context)
 
-
-def show_award(request):
-    json_response = get_award_json(request)
-    
-    award = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-    awards = [awr.object for awr in award]
-    title_query = request.GET.get("title", "").strip()
-    
-    context = {
-        "name": "Regina Gunadi",
-        "award_list": awards,
-        "title_query": title_query,
-    }
-
-    return render(request, "award.html", context)
-
-
 @login_required(login_url="/login/")
 def create_experience(request):
     if not request.user.is_superuser:
-        raise PermissionDenied
+        context = {
+            "name": "Regina Gunadi",
+        }
+        return render(request, "forbidden.html", context, status=403)
     
     form = ExperienceForm(request.POST or None)
 
@@ -94,11 +114,13 @@ def create_experience(request):
     }
     return render(request, "generic_form.html", context)
 
-
 @login_required(login_url="/login/")
 def delete_experience(request, experience_id):
     if not request.user.is_superuser:
-        raise PermissionDenied
+        context = {
+            "name": "Regina Gunadi",
+        }
+        return render(request, "forbidden.html", context, status=403)
     
     experience = get_object_or_404(Experience, pk=experience_id)
 
@@ -109,8 +131,7 @@ def delete_experience(request, experience_id):
 
     return redirect("main:show_experience")
 
-
-@login_required(login_url="/login/")
+@permission_required("main.change_experience", raise_exception=True)
 def edit_experience(request, experience_id):
     experience = get_object_or_404(Experience, pk=experience_id)
     
@@ -148,8 +169,34 @@ def get_experience_json(request):
     experience_json = serializers.serialize("json", experience, use_natural_foreign_keys=True)
     return HttpResponse(experience_json, content_type="application/json")
 
+
+# Award Section
+def show_award(request):
+    json_response = get_award_json(request)
+    
+    award = serializers.deserialize(
+        "json",
+        json_response.content.decode("utf-8"),
+    )
+    awards = [awr.object for awr in award]
+    title_query = request.GET.get("title", "").strip()
+    
+    context = {
+        "name": "Regina Gunadi",
+        "award_list": awards,
+        "title_query": title_query,
+    }
+
+    return render(request, "award.html", context)
+
 @login_required(login_url="/login/")
 def create_award(request):
+    if not request.user.is_superuser:
+        context = {
+            "name": "Regina Gunadi",
+        }
+        return render(request, "forbidden.html", context, status=403)
+    
     form = AwardForm(request.POST or None)
 
     if request.method == "POST" and form.is_valid():
@@ -169,6 +216,12 @@ def create_award(request):
 
 @login_required(login_url="/login/")
 def delete_award(request, award_id):
+    if not request.user.is_superuser:
+        context = {
+            "name": "Regina Gunadi",
+        }
+        return render(request, "forbidden.html", context, status=403)
+
     award = get_object_or_404(Award, pk=award_id)
 
     if request.method == "POST":
@@ -178,7 +231,7 @@ def delete_award(request, award_id):
 
     return redirect("main:show_award")
 
-@login_required(login_url="/login/")
+@permission_required("main.change_award", raise_exception=True)
 def edit_award(request, award_id):
     award = get_object_or_404(Award, pk=award_id)
     
@@ -217,69 +270,23 @@ def get_award_json(request):
     return HttpResponse(award_json, content_type="application/json")
 
 
-def register(request):
-    form = UserCreationForm(request.POST or None)
-
-    if request.method == "POST" and form.is_valid():
-        form.save()
-        messages.success(request, "Akun berhasil dibuat. Silakan login.")
-        return redirect("main:login")
-
-    context = {
-        "name": "Regina",
-        "form": form,
-    }
-    return render(request, "register.html", context)
-
-
-def login_user(request):
-    form = AuthenticationForm(request, data=request.POST or None)
-
-    if request.method == "POST" and form.is_valid():
-        user = form.get_user()
-        login(request, user)
-        response = redirect("main:show_main")
-        response.set_cookie('last_login', datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        return response
-
-    context = {
-        "name": "Regina",
-        "form": form,
-    }
-    return render(request, "login.html", context)
-
-def logout_user(request):
-    logout(request)
-    response = redirect("main:show_main")
-    response.delete_cookie('last_login')
-    return response
-
-
-# Tanpa cek is_superuser: semua akun yang sudah login boleh memberi star
+# Toggle Star
 @login_required(login_url="/login/")
-def toggle_star_experience(request, experience_id):
-    experience = get_object_or_404(Experience, pk=experience_id)
-
+def toggle_star(request, item_type, item_id):
     if request.method == "POST":
-        # Kalau akun ini sudah pernah memberi star, batalkan star-nya.
-        # Kalau belum, tambahkan star.
-        if request.user in experience.starred_by.all():
-            experience.starred_by.remove(request.user)
+        if item_type == 'experience':
+            obj = get_object_or_404(Experience, pk=item_id)
+            redirect_url = "main:show_experience"
+        elif item_type == 'award':
+            obj = get_object_or_404(Award, pk=item_id)
+            redirect_url = "main:show_award"
         else:
-            experience.starred_by.add(request.user)
+            return redirect("main:show_main")
 
-    return redirect("main:show_experience")
 
-@login_required(login_url="/login/")
-def toggle_star_award(request, award_id):
-    award = get_object_or_404(Experience, pk=award_id)
-
-    if request.method == "POST":
-        # Kalau akun ini sudah pernah memberi star, batalkan star-nya.
-        # Kalau belum, tambahkan star.
-        if request.user in award.starred_by.all():
-            award.starred_by.remove(request.user)
+        if request.user in obj.starred_by.all():
+            obj.starred_by.remove(request.user)
         else:
-            award.starred_by.add(request.user)
-
-    return redirect("main:show_award")
+            obj.starred_by.add(request.user)
+            
+        return redirect(redirect_url)

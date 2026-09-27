@@ -12,7 +12,7 @@
             <div class="container">
                 <p class="section-kicker">Awards</p>
 
-                 <div class="project-header">
+                <div class="project-header">
                    <h1>Collecting Pokemon Cards</h1> 
                     <p class="award-quote"><i>"Success is a journey, not a destination. The doing is often more important than the outcome." </i>- Arthur Ashe</p>
                 </div>
@@ -33,10 +33,17 @@
 
                         <div class="award-card-actions">
                             <div class="award-actions">
-                                <a href="{{award.get_edit_url }}"
-                                    class="button award-update-button">
-                                    Update Award
-                                </a>
+                                {% if perms.main.change_experience or user.is_superuser %}
+                                    <a href="{{award.get_edit_url }}"
+                                        class="button award-update-button">
+                                        Update Award
+                                    </a>
+                                {% endif %}
+
+                                {% if user.is_authenticated %}
+                                    {% include "components/generic_star.html" with item=award item_type="award"%}
+                                {% endif %}
+                                
                                 {% if user.is_superuser %}
                                     {% include "components/generic_delete_modal.html" with item=award item_type="award" %}
                                 {% endif %}

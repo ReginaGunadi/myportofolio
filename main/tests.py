@@ -95,4 +95,4 @@ class AwardsTest(TestCase):
     def test_empty_award_page(self):
         Award.objects.all().delete()
         response = self.client.get(reverse("main:show_award"))
-        self.assertContains(response, "There are no awards found yet.")
+        self.assertContains(response, "There are no awards yet.")

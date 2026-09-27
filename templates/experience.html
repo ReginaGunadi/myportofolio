@@ -43,11 +43,17 @@
 
                                 <div class="experience-card-actions">
                                     <div class="experience-actions">
-                                        <a href="{{experience.get_edit_url }}"
-                                            class="button experience-update-button">
-                                            Update Experience
-                                        </a>
-                                        {% include "components/experience_star.html" with experience=experience %}
+                                        {% if perms.main.change_experience or user.is_superuser %}
+                                            <a href="{{experience.get_edit_url }}"
+                                                class="button experience-update-button">
+                                                Update Experience
+                                            </a>
+                                        {% endif%}
+                                        
+                                        {% if user.is_authenticated %}
+                                            {% include "components/generic_star.html" with item=experience item_type="experience"%}
+                                        {% endif %}
+                                        
                                         {% if user.is_superuser %}
                                             {% include "components/generic_delete_modal.html" with item=experience item_type="experience" %}
                                         {% endif %}

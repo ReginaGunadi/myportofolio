@@ -336,7 +336,7 @@ h1, .brand {
     align-items: center;
     flex-wrap: wrap;
     gap: 5px;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     padding-left: 0.5rem;
 }
 
@@ -360,7 +360,7 @@ h1, .brand {
 
 .experience-actions,.experience-status,
 .award-actions,.award-status {
-    margin: 0.5rem;
+    margin: 0.2rem;
 }
 
 .experience-delete-modal, 
@@ -541,11 +541,11 @@ h1, .brand {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: var(--ink);
+    background: #1A73E8;
 }
 
 .button-star.is-starred {
-    background: var(--accent);
+    background: #2a2c2d;
 }
 
 .star-count {
@@ -558,6 +558,10 @@ h1, .brand {
 
 /*Styling for handphone view*/
 @media (max-width: 600px) {
+    .site-header nav {
+        gap: 1rem;
+    }
+    
     /* Section: About Me */
     .hero-grid {
         grid-template-columns: 1fr;

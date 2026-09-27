@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends 'base.html' %}
+{% block meta %}
+    <title>Forbidden Access</title>
+{% endblock meta %}
+{% block content %}
+    <main>
+        <section class="experience-section" id="experience">
+             <div class="container">
+                <h1>403 - Restricted Area</h1>
+                <p> Unfortunately, your current account role doesn't have access for this action.</p>
+                <br>
+                
+                <a href="{% url 'main:show_main' %}" class="button">Back to Main Page</a>
+             </div>
+        </section>
+    </main>
+{% endblock content %}
+</html>

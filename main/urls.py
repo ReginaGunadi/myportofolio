@@ -4,7 +4,7 @@ from main.views import show_main, show_experience, show_award
 from main.views import create_experience, delete_experience, get_experience_json, edit_experience
 from main.views import create_award, get_award_json, delete_award, edit_award
 from main.views import register, login_user, logout_user
-from main.views import toggle_star_experience, toggle_star_award
+from main.views import toggle_star
 
 app_name = "main"
 
@@ -27,6 +27,5 @@ urlpatterns = [
     path("login/", login_user, name="login"),
     path("logout/", logout_user, name="logout"),
 
-    path("experience/<uuid:experience_id>/star/",toggle_star_experience, name="toggle_star_experience"),
-    path("award/<uuid:awards_id>/star/",toggle_star_award, name="toggle_star_award")
+    path('star/<str:item_type>/<uuid:item_id>/', toggle_star, name='toggle_star')
 ]
