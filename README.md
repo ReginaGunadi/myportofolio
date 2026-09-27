@@ -109,3 +109,28 @@ Strategi prompting yang saya gunakan adalah:
 
 Untuk selengkapnya dapat dilihat di: https://share.gemini.google/ewFLojuAo7Z3
 </div>
+
+
+### Tugas 4
+<div align = "justify">
+Pertanyaan reflektif mingguan ditiadakan 
+
+### Setup Mingguan: 
+Minggu ini saya melakukan: 
+- Merapikan styling CSS dari Tutorial 4
+- Merefactor fitur toggle star tiap section menjadi satu HTML, yaitu generic_star
+- Menambahkan role baru dan mengatur hak akses dari tiap role yang ada
+- Menambahkan custom HTML 403 Forbidden saat role tertentu berusaha mengakses halaman yang tidak sesuai dengan permissionnya
+
+### Penggunaan AI (AI Disclosure)
+Untuk mengerjakan tugas minggu ini, AI saya gunakan seperti minggu lalu, yaitu sebagai teman diskusi dan debugging. Tugas minggu ini adalah diminta untuk mengatur akses dari empat role yang berbeda. AI saya gunakan untuk menemukan kesalahan dari implementasi saya setelah menonton tutorial di Youtube. Contoh: pada video Youtube yang saya tonton, beliau menggunakan kelas customUser, mengapa pada tutorial 4 tidak ada kelas tersebut? 
+Strategi prompting yang saya gunakan adalah: 
+- **Mengecek kebeneran keputusan:**: Saya memberi tahu keputusan saya tentang sesuatu, lalu meminta AI untuk memastikan apakah hal tersebut merupakan best practice atau tidak. 
+- **Membantu debugging**: Saya mengerjakan dahulu sesuai dengan implementasi yang dipahami. Bila error, saya meminta AI untuk menjelaskan mengapa implementasi tersebut error dan dimana letak kesalahan implementasinya.
+
+## Kekurangan AI: 
+Pada saat saya bertanya: Saya punya dua section yaitu Experience dan Award, dan saya punya fitur baru yaitu starred. Saya refactor aja ya terus nanti dipakai di Experience dan Award, harusnya keputusan ini aman kan ya?
+AI mempunyai limitasi kurang memahami konteks. Sehingga ia menjawab dengan mengirimkan coding interface TypeScript, UI componentsnya harus dipisah, dan diminta untuk menghindari bentrok ID. Padahal yang harus dilakukan hanya melakukan refactor HTML.
+
+Untuk selengkapnya dapat dilihat di: https://share.gemini.google/toL1efbRQ4fI
+</div>
