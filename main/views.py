@@ -10,12 +10,14 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import PermissionDenied  
+
+from django.views.decorators.http import require_POST
 
 
 def show_main(request):
@@ -73,19 +75,12 @@ def logout_user(request):
 
 # Experience Section
 def show_experience(request):
-    json_response = get_experience_json(request)
-
-    experience = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-    experiences = [exp.object for exp in experience]
     title_query = request.GET.get("title", "").strip()
 
     context = {
         "name": "Regina Gunadi",
-        "experience_list": experiences,
         "title_query": title_query,
+        "form": ExperienceForm(),
     }
     return render(request, "experience.html", context)
 
@@ -166,8 +161,31 @@ def get_experience_json(request):
     if sort_by == "title_desc":
         experience = experience.order_by("-title")
 
-    experience_json = serializers.serialize("json", experience, use_natural_foreign_keys=True)
-    return HttpResponse(experience_json, content_type="application/json")
+    # Konstruksi data JSON secara manual agar bisa menyisipkan logika Star
+    data = []
+    for exp in experience:
+        starred_users = exp.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(exp.id),
+            "fields": {
+                "title": exp.title,
+                "description": exp.description,
+                "category": exp.category,
+                "thumbnail" : exp.thumbnail,
+                "started_at": exp.started_at,
+                "ended_at": exp.ended_at,
+                "star_count": starred_users.count(),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            }
+        })
+    
+    return JsonResponse(data, safe=False)
+
+
 
 
 # Award Section
@@ -290,3 +308,22 @@ def toggle_star(request, item_type, item_id):
             obj.starred_by.add(request.user)
             
         return redirect(redirect_url)
+
+
+@require_POST
+def create_experience_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan pengalaman."},
+            status=403,
+        )
+
+    form = ExperienceForm(request.POST)
+    if form.is_valid():
+        experience = form.save()
+        return JsonResponse(
+            {"message": "Experience berhasil ditambahkan.", "pk": str(experience.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)

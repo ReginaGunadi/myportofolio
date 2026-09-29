@@ -55,7 +55,6 @@ class Experience(models.Model):
     def ambil_isi_list(self):
         return self.description.split("\n")
 
-
 class Award(models.Model):
     AWARD_CHOICES = [
         ('math', 'Math'),
