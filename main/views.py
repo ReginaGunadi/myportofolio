@@ -14,8 +14,7 @@ from django.http import HttpResponse, JsonResponse
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 
-from django.contrib.auth.decorators import login_required, permission_required
-from django.core.exceptions import PermissionDenied  
+from django.contrib.auth.decorators import login_required, permission_required 
 
 from django.views.decorators.http import require_POST
 
@@ -172,7 +171,7 @@ def get_experience_json(request):
             "pk": str(exp.id),
             "fields": {
                 "title": exp.title,
-                "description": exp.description,
+                "description": exp.ambil_isi_list,
                 "category": exp.category,
                 "thumbnail" : exp.thumbnail,
                 "started_at": exp.started_at,
