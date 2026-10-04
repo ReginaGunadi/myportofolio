@@ -134,3 +134,32 @@ AI mempunyai limitasi kurang memahami konteks. Sehingga ia menjawab dengan mengi
 
 Untuk selengkapnya dapat dilihat di: https://share.gemini.google/toL1efbRQ4fI
 </div>
+
+
+### Tugas 5
+<div align = "justify">
+
+1. Berdasarkan sumber yang saya temukan (https://www.geeksforgeeks.org/javascript/debouncing-in-javascript/), debouncing adalah sebuah teknik Javascript yang digunakan untuk mengkontrol frekuensi pemanggilan fungsi saat fungsi tersebut dipanggil terus menerus secara berulang. Caranya adalah dengan membatasi pemanggilan fungsi pada saat user melakukan pengetikan, scrolling, dan aksi beruntun lainnya serta mendelay eksekusi perintah lain dengan rentang waktu tertentu sampai isian user selesai. Hal ini penting diterapkan pada pencarian yang menggunakan AJAX karena dengan begitu kita dapat memastikan bahwa request API hanya terjadi sekali saat user selesai mengetik. Bila tidak dilakukan maka, request API akan dikirimkan di setiap ketikan user. Hal ini boros sumber daya, karena kita mengakses database secara berulang namun tidak digunakan hasilnya. 
+2. Berdasarkan sumber yang saya temukan (https://id.javascript.info/async-await), fungsi dari penggunaan await saat kita menggunakan fetch() adalah untuk menghentikan sementara fungsi async sampai database server selesai mengembalikan objek Promise berupa data Response. Bila tidak menggunakan await maka eksekusi kode terus dijalankan walaupun data belum ada, sehingga terjadi race condition. Contoh dilakukan fetch lalu di baris berikutnya terdapat operasi yang menggunakan data yang difetch. Data tersebut tidak ada karena masih menunggu proses pengambilan dari database namun terpaksa harus diakses. 
+3. Serangan XSS adalah suatu serangan keamanan web yang dilakukan dengan menyisipkan kode berbahaya (biasanya kode JavaScript) ke dalam halaman web publik. Hal ini dapat dilakukan melalui input pengisian form dan lain sebagainya. AJAX/JavaScript lebih rentan terhadap serangan ini karena tidak adanya pengecekan otomatis (contoh: harus membuat fungsi escapeHtml). Sementara Django akan menganggap perintah di luar keywords Django sebagai suatu string dan tidak mengeksekusinya. Sehingga script kode berbahaya tersebut dijadikan suatu string secara otomatis. 
+
+### Setup Mingguan: 
+Minggu ini saya melakukan: 
+- Memperbaiki beberapa file sesuai feedback yang diberikan di Scele
+- Merapikan styling CSS dan wording dari Tutorial 5
+- Mengimplementasikan tugas 5: menampilkan data dengan AJAX, debouncing search, menambah data menggunakan modal dan AJAX, notifikasi toast, dan proteksi XSS
+- Mengubah fitur sorting menjadi menggunakan Javascript
+
+### Penggunaan AI (AI Disclosure)
+Untuk mengerjakan tugas minggu ini, AI saya gunakan seperti minggu-minggu lalu, yaitu sebagai teman diskusi dan debugging. Tugas minggu ini adalah diminta untuk menerapkan interaktivitas web melalui JS. AI saya gunakan untuk mengecek pemahaman, menjelaskan suatu konsep, dan juga memvalidasi keputusan. 
+Contoh: Saya bertanya cara mengubah suatu fitut, karena saya telah mencari di Google dan tidak menemukan hal terkait.
+
+Strategi prompting yang saya gunakan adalah: 
+- **Meminta untuk menjelaskan:**: Saya menceritakan pemahaman saya atau mengirimkan link video Youtube terkait lalu memintanya untuk memverifikasi pemahaman saya dan menjelaskan beberapa konsep yang belum saya pahami.
+- **Mengecek kebeneran keputusan:**: Saya memberi tahu keputusan saya tentang sesuatu, lalu meminta AI untuk memastikan apakah  tersebut merupakan best practice atau tidak. 
+- **Membantu debugging**: Saya mengerjakan dahulu sesuai dengan implementasi yang dipahami lalu bila terdapat error saya sebutkan hipotesis saya dan meminta AI untuk mengecek apakah hipotesis saya benar atau tidak. 
+
+## Kekurangan AI: 
+Pada saat saya bertanya: Saya ingin mengubah widget suatu unsur pada form menjadi dropdown. Setelah saya cari di Google hal tersebut tidak ada.
+Lalu AI menjelaskan solusi dimana solusi tersebut tidak ada fieldnya di Django documentation. Hal ini terjadi karena AI mempunyai limitasi kurang memahami konteks. Ia menganggap bahwa model dan form dalam suatu file .py yang sama. Maka, AI tidak mempunyai pemahaman akan adanya SRP (Single Responsibility Principle).
+</div>
