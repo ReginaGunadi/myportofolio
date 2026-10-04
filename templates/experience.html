@@ -150,8 +150,13 @@
 
         try {
             displayPageSection({ showLoading: true });
-            
-            const url = searchQuery ? `${BASE_EXPERIENCES_ENDPOINT}?title=${encodeURIComponent(searchQuery)}` : BASE_EXPERIENCES_ENDPOINT;
+
+            const sort = searchForm.querySelector('select[name="sort"]').value;
+            const params = new URLSearchParams();
+            if (searchQuery) params.set('title', searchQuery);
+            params.set('sort', sort);
+
+            const url = `${BASE_EXPERIENCES_ENDPOINT}?${params}`;
             
             const response = await fetch(url, {
                 headers: { 'Accept': 'application/json' },
