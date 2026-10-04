@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput, Textarea, URLInput
+from django.forms import ModelForm, TextInput, Textarea, URLInput, Select
 from main.models import Experience, Award
 
 from django.core.exceptions import ValidationError
@@ -38,11 +38,8 @@ class ExperienceForm(ModelForm):
                     "rows": 3,
                 }
             ),
-            "category": TextInput(
-                attrs={
-                    "placeholder": "Internship, research, volunteer, part-time, full-time, freelance",
-                }
-            ),
+            "category": Select(),
+
             "thumbnail": URLInput(
                 attrs={
                     "placeholder": "https://www.google.com/",
