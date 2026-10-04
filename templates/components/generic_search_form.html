@@ -6,9 +6,8 @@
            placeholder="Search based on {{ item_type }} name"
            class="{{ item_type }}-search__input"
            aria-label="Search based on {{ item_type }} name">
-    <button type="submit" class="button">Search</button>
 
-    <select name="sort" class= "button {{item_type}}-sort" onchange="this.form.submit()">
+    <select name="sort" class= "button {{item_type}}-sort" onchange="this.form.requestSubmit()">
         <option value="title_asc" {% if request.GET.sort == "title_asc" %}selected{% endif %}>
             {{item_type|title}} name (A-Z)
         </option>

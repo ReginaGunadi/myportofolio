@@ -186,24 +186,15 @@ def get_experience_json(request):
 
 
 
-
 # Award Section
 def show_award(request):
-    json_response = get_award_json(request)
-    
-    award = serializers.deserialize(
-        "json",
-        json_response.content.decode("utf-8"),
-    )
-    awards = [awr.object for awr in award]
     title_query = request.GET.get("title", "").strip()
     
     context = {
         "name": "Regina Gunadi",
-        "award_list": awards,
         "title_query": title_query,
+        "form": AwardForm(),
     }
-
     return render(request, "award.html", context)
 
 @login_required(login_url="/login/")
@@ -283,8 +274,27 @@ def get_award_json(request):
     if sort_by == "title_desc":
         award = award.order_by("-title")
 
-    award_json = serializers.serialize("json", award, use_natural_foreign_keys=True)
-    return HttpResponse(award_json, content_type="application/json")
+    # Konstruksi data JSON secara manual agar bisa menyisipkan logika Star
+    data = []
+    for awr in award:
+        starred_users = awr.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(awr.id),
+            "fields": {
+                "title": awr.title,
+                "description": awr.description,
+                "category": awr.category,
+                "image" : awr.image,
+                "star_count": starred_users.count(),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            }
+        })
+    
+    return JsonResponse(data, safe=False)
 
 
 # Toggle Star
@@ -313,7 +323,7 @@ def toggle_star(request, item_type, item_id):
 def create_experience_ajax(request):
     if not request.user.is_superuser:
         return JsonResponse(
-            {"message": "Hanya pemilik portofolio yang dapat menambahkan pengalaman."},
+            {"message": "Only the owner of the portofolio who can add Experiences."},
             status=403,
         )
 
@@ -321,7 +331,26 @@ def create_experience_ajax(request):
     if form.is_valid():
         experience = form.save()
         return JsonResponse(
-            {"message": "Experience berhasil ditambahkan.", "pk": str(experience.id)},
+            {"message": "New Experience added.", "pk": str(experience.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
+
+@require_POST
+def create_award_ajax(request):
+    if not request.user.is_superuser:
+        return JsonResponse(
+            {"message": "Only the owner of the portofolio who can add Awards."},
+            status=403,
+        )
+
+    form = AwardForm(request.POST)
+    if form.is_valid():
+        award = form.save()
+        return JsonResponse(
+            {"message": "New Award added.", "pk": str(award.id)},
             status=201,
         )
 

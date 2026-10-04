@@ -1,0 +1,44 @@
+<div id="add-{{item_type}}-modal"
+     class="{{item_type}}-form-modal"
+     popover="auto"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="add-{{item_type}}-modal-title">
+    <button type="button"
+            class="{{item_type}}-form-modal__backdrop"
+            popovertarget="add-{{item_type}}-modal"
+            popovertargetaction="hide"
+            aria-label="Tutup form tambah {{item_type}}"></button>
+
+    <div class="{{item_type}}-form-modal__content">
+        <button type="button"
+                class="{{item_type}}-form-modal__close"
+                popovertarget="add-{{item_type}}-modal"
+                popovertargetaction="hide"
+                aria-label="Tutup form tambah {{item_type}}">×</button>
+
+        <h2 id="add-{{item_type}}-modal-title">Add New {{item_type|title}}</h2>
+        <form id="{{item_type}}-form"
+              method="post"
+              action="{{create_url}}"
+              class="{{item_type}}-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <p class="form-error">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <div class="{{item_type}}-form-modal__actions">
+                <button type="button"
+                        class="button button-secondary"
+                        popovertarget="add-{{item_type}}-modal"
+                        popovertargetaction="hide">Cancel</button>
+                <button type="submit" class="button">Add {{item_type}}</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -60,7 +60,7 @@ class ExperienceForm(ModelForm):
     def clean_title(self):
         title = strip_tags(self.cleaned_data["title"]).strip()
         if not title:
-            raise ValidationError("Nama Experience tidak boleh hanya berisi tag HTML.")
+            raise ValidationError("Experience's name can't consist only of HTML tags.")
         return title
 
     def clean_category(self):
@@ -101,14 +101,22 @@ class AwardForm(ModelForm):
                     "rows": 3,
                 }
             ),
-            "category": TextInput(
-                attrs={
-                    "placeholder": "Math, music, tech, other",
-                }
-            ),
+            "category": Select(),
             "image": URLInput(
                 attrs={
                     "placeholder": "https://www.google.com/",
                 }
             ),
         }
+
+    def clean_title(self):
+            title = strip_tags(self.cleaned_data["title"]).strip()
+            if not title:
+                raise ValidationError("Award's name can't consist only of HTML tags.")
+            return title
+    
+    def clean_category(self):
+        return strip_tags(self.cleaned_data["category"]).strip()
+
+    def clean_description(self):
+        return strip_tags(self.cleaned_data["description"]).strip()

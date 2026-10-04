@@ -5,7 +5,7 @@ from main.views import create_experience, delete_experience, get_experience_json
 from main.views import create_award, get_award_json, delete_award, edit_award
 from main.views import register, login_user, logout_user
 from main.views import toggle_star
-from main.views import create_experience_ajax
+from main.views import create_experience_ajax, create_award_ajax
 
 app_name = "main"
 
@@ -31,4 +31,5 @@ urlpatterns = [
     path('star/<str:item_type>/<uuid:item_id>/', toggle_star, name='toggle_star'), 
 
     path("experiences/add-ajax/", create_experience_ajax, name="create_experience_ajax"),
+    path("award/add-ajax/", create_award_ajax, name="create_award_ajax"),
 ]
