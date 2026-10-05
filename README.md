@@ -162,4 +162,6 @@ Strategi prompting yang saya gunakan adalah:
 ## Kekurangan AI: 
 Pada saat saya bertanya: Saya ingin mengubah widget suatu unsur pada form menjadi dropdown. Setelah saya cari di Google hal tersebut tidak ada.
 Lalu AI menjelaskan solusi dimana solusi tersebut tidak ada fieldnya di Django documentation. Hal ini terjadi karena AI mempunyai limitasi kurang memahami konteks. Ia menganggap bahwa model dan form dalam suatu file .py yang sama. Maka, AI tidak mempunyai pemahaman akan adanya SRP (Single Responsibility Principle).
+
+Untuk selengkapnya dapat dilihat di: https://share.gemini.google/aOKx3mxuANZD
 </div>
