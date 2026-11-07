@@ -17,7 +17,7 @@
                 popovertargetaction="hide"
                 aria-label="Tutup form tambah {{item_type}}">×</button>
 
-        <h2 id="add-{{item_type}}-modal-title">Add New {{item_type|title}}</h2>
+        <h2 id="add-{{item_type}}-modal-title">{{item_type|title}} Form</h2>
         <form id="{{item_type}}-form"
               method="post"
               action="{{create_url}}"
@@ -37,7 +37,7 @@
                         class="button button-secondary"
                         popovertarget="add-{{item_type}}-modal"
                         popovertargetaction="hide">Cancel</button>
-                <button type="submit" class="button">Add {{item_type}}</button>
+                <button type="submit" class="button">Save {{item_type}}</button>
             </div>
         </form>
     </div>

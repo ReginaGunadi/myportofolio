@@ -39,7 +39,7 @@
         </section>
     </main>
 
-{% if user.is_superuser %}
+{% if user.is_superuser or perms.main.change_experience %}
     {% include "components/generic_form_modal.html" with item_type="experience" create_url=create_url %}
 {% endif %}
 
@@ -50,6 +50,7 @@
     const STAR_EXPERIENCE_ENDPOINT = "{% url 'api:experience-star' '00000000-0000-0000-0000-000000000000' %}";
     const IS_SUPERUSER = "{{ user.is_superuser|yesno:'true,false' }}" === "true";
     const IS_AUTHENTICATED = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
+    const IS_EDITOR = {% if perms.main.change_experience %}true{% else %}false{% endif %};
 
     const loadingState = document.getElementById('loading');
     const errorState = document.getElementById('error');
@@ -60,6 +61,7 @@
     const experienceForm = document.getElementById('experience-form');
     let experiencesAbortController;
     let searchDebounceTimer;
+    let editingId = null;
 
     function getCookie(name) {
         const prefix = `${name}=`;
@@ -104,6 +106,10 @@
             ? `<button type="button" class="button button-danger" data-action="delete"
                 data-id="${escapeHtml(experience.id)}">Delete</button>` : '';
 
+        const edit = (IS_EDITOR || IS_SUPERUSER)
+            ? `<button type="button" class="button experience-update-button" data-action="edit"
+                data-id="${escapeHtml(experience.id)}">Update Experience</button>` : ''; 
+
         article.innerHTML = `
             ${image}
             <div>
@@ -112,7 +118,7 @@
                 <p class="experience-description">${escapeHtml(experience.description)}</p>
                 <div class="experience-card-actions">
                     <div class="experience-actions">
-                        ${star}${remove}
+                        ${edit}${star}${remove}
                     </div>
                 </div>
             </div>
@@ -170,15 +176,18 @@
         try {
             const fields = new FormData(experienceForm);
             const payload = Object.fromEntries([
-                'title', 'description', 'tech_stack', 'experience_url', 'experience_image_url',
+                'title', 'description', 'category', 'thumbnail', 'started_at',"ended_at", 
             ].map(name => [name, fields.get(name)]));
-            await writeExperience(BASE_EXPERIENCES_ENDPOINT, 'POST', payload);
+
+            const url = editingId ? experienceEndpoint(DETAIL_EXPERIENCE_ENDPOINT, editingId) : BASE_EXPERIENCES_ENDPOINT;
+            await writeExperience(url, editingId ? 'PATCH' : 'POST', payload);
+            editingId = null;
             experienceForm.reset();
             document.getElementById('add-experience-modal').hidePopover();
-            showToast('Success', 'Experience created.', 'success');
+            showToast('Success', 'Experience saved.', 'success');
             await fetchExperiences(searchInput.value.trim());
         } catch (error) {
-            showToast('Could not create experience', error.message, 'error');
+            showToast('Could not save experience', error.message, 'error');
         } finally {
             button.disabled = false;
         }
@@ -190,6 +199,18 @@
         const button = event.target.closest('button[data-action]');
         if (!button || button.disabled) return;
         const action = button.dataset.action;
+
+        if (action === 'edit') {
+            const response = await fetch(experienceEndpoint(DETAIL_EXPERIENCE_ENDPOINT, button.dataset.id),
+                { headers: { Accept: 'application/json' } });
+            const data = await response.json();
+            ['title', 'description', 'category', 'thumbnail', 'started_at', 'ended_at']
+                .forEach(name => { experienceForm.elements[name].value = data[name] ?? ''; });
+            editingId = button.dataset.id;
+            document.getElementById('add-experience-modal').showPopover();
+            return;
+        }
+
         if (action === 'delete' && !window.confirm('Delete this experience?')) return;
         button.disabled = true;
         try {
