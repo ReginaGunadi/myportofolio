@@ -21,6 +21,13 @@ def experience_list(request):
         title = request.query_params.get("title", "").strip()
         if title:
             experiences = experiences.filter(title__icontains=title)
+
+        sort_by = request.query_params.get("sort", "").strip()
+        if sort_by == "title_asc":
+            experiences = experiences.order_by("title", "id")
+        elif sort_by == "title_desc":
+            experiences = experiences.order_by("-title", "-id")
+
         serializer =  ExperienceSerializer(
             experiences, many=True, context={"request": request},
         )
@@ -79,6 +86,14 @@ def award_list(request):
         title = request.query_params.get("title", "").strip()
         if title:
             awards = awards.filter(title__icontains=title)
+
+        sort_by = request.query_params.get("sort", "").strip()
+        if sort_by == "title_asc":
+            awards = awards.order_by("title", "id")
+        elif sort_by == "title_desc":
+            awards = awards.order_by("-title", "-id")
+
+
         serializer = AwardSerializer(
             awards, many=True, context={"request": request},
         )

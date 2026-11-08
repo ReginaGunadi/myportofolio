@@ -58,6 +58,7 @@
     const gridContainer = document.getElementById('grid');
     const searchForm = document.getElementById('experience-search-form');
     const searchInput = document.getElementById('search-input');
+    const sortSelect = searchForm.querySelector('select');
     const experienceForm = document.getElementById('experience-form');
     let experiencesAbortController;
     let searchDebounceTimer;
@@ -133,6 +134,7 @@
             displayPageSection({ showLoading: true });
             const url = new URL(BASE_EXPERIENCES_ENDPOINT, window.location.origin);
             if (searchQuery) url.searchParams.set('title', searchQuery);
+            if (sortSelect && sortSelect.value) url.searchParams.set('sort', sortSelect.value);
             const response = await fetch(url, {
                 headers: { Accept: 'application/json' },
                 signal: experiencesAbortController.signal,
@@ -234,6 +236,9 @@
         event.preventDefault();
         clearTimeout(searchDebounceTimer);
         fetchExperiences(searchInput.value.trim());
+    });
+    if (sortSelect) sortSelect.addEventListener('change', function() {
+        fetchAwards(searchInput.value.trim());
     });
     fetchExperiences(searchInput.value.trim());
     </script>

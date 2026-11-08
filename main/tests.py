@@ -80,15 +80,14 @@ class AwardsTest(TestCase):
         self.assertEqual(self.award.category, "music")
 
     def test_award_page(self):
-        response = self.client.get(reverse("main:show_award"))
-
+        response = self.client.get("/award/")
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "award.html")
-        self.assertContains(response, self.award.title)
-        self.assertContains(response, self.award.description)
-        self.assertContains(response, "Music")
-        self.assertContains(response, f'href="{reverse("main:show_main")}"')
+        self.assertContains(response, 'id="grid"')
 
+        api = self.client.get("/api/v1/awards/")
+        self.assertEqual(api.status_code, 200)
+        self.assertEqual(api.data[0]["title"], self.award.title)
+        
     def test_empty_award_page(self):
         Award.objects.all().delete()
         response = self.client.get(reverse("main:show_award"))

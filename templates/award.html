@@ -58,6 +58,7 @@
     const gridContainer = document.getElementById('grid');
     const searchForm = document.getElementById('award-search-form');
     const searchInput = document.getElementById('search-input');
+    const sortSelect = searchForm.querySelector('select');
     const awardForm = document.getElementById('award-form');
     const awardModal = document.getElementById('add-award-modal');
     let awardsAbortController;
@@ -133,6 +134,7 @@
             displayPageSection({ showLoading: true });
             const url = new URL(BASE_AWARDS_ENDPOINT, window.location.origin);
             if (searchQuery) url.searchParams.set('title', searchQuery);
+            if (sortSelect && sortSelect.value) url.searchParams.set('sort', sortSelect.value);
             const response = await fetch(url, {
                 headers: { Accept: 'application/json' },
                 signal: awardsAbortController.signal,
@@ -233,6 +235,9 @@
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
         clearTimeout(searchDebounceTimer);
+        fetchAwards(searchInput.value.trim());
+    });
+    if (sortSelect) sortSelect.addEventListener('change', function() {
         fetchAwards(searchInput.value.trim());
     });
     fetchAwards(searchInput.value.trim());
