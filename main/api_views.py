@@ -92,7 +92,7 @@ def award_list(request):
 
 @api_view(["GET", "HEAD", "PUT", "PATCH", "DELETE"])
 @authentication_classes([SessionAuthentication])
-@permission_classes([IsPortfolioOwnerOrReadOnly])
+@permission_classes([IsPortfolioOwnerOrEditorOrReadOnly])
 def award_detail(request, award_id):
     award = get_object_or_404(
         Award.objects.prefetch_related("starred_by"), pk=award_id,
