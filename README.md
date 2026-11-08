@@ -152,7 +152,7 @@ Minggu ini saya melakukan:
 
 ### Penggunaan AI (AI Disclosure)
 Untuk mengerjakan tugas minggu ini, AI saya gunakan seperti minggu-minggu lalu, yaitu sebagai teman diskusi dan debugging. Tugas minggu ini adalah diminta untuk menerapkan interaktivitas web melalui JS. AI saya gunakan untuk mengecek pemahaman, menjelaskan suatu konsep, dan juga memvalidasi keputusan. 
-Contoh: Saya bertanya cara mengubah suatu fitut, karena saya telah mencari di Google dan tidak menemukan hal terkait.
+Contoh: Saya bertanya cara mengubah suatu fitur, karena saya telah mencari di Google dan tidak menemukan hal terkait.
 
 Strategi prompting yang saya gunakan adalah: 
 - **Meminta untuk menjelaskan:**: Saya menceritakan pemahaman saya atau mengirimkan link video Youtube terkait lalu memintanya untuk memverifikasi pemahaman saya dan menjelaskan beberapa konsep yang belum saya pahami.
@@ -164,4 +164,46 @@ Pada saat saya bertanya: Saya ingin mengubah widget suatu unsur pada form menjad
 Lalu AI menjelaskan solusi dimana solusi tersebut tidak ada fieldnya di Django documentation. Hal ini terjadi karena AI mempunyai limitasi kurang memahami konteks. Ia menganggap bahwa model dan form dalam suatu file .py yang sama. Maka, AI tidak mempunyai pemahaman akan adanya SRP (Single Responsibility Principle).
 
 Untuk selengkapnya dapat dilihat di: https://share.gemini.google/aOKx3mxuANZD
+</div>
+
+
+### Tugas 6
+<div align = "justify">
+
+1. REST (Representational State Transfer) adalah suatu gaya arsitektur pengembangan software yang mendeskripsikan suatu interface seragam untuk komponen yang saling terpisah. REST biasa digunakan pada arsitektur Client-Server. Batasan REST terdiri dari: client-server separation, stateless, cacheable, uniform interface, dan layered system and code on demand. 
+Sebuah API dinyatakan RESTful bila memenuhi seluruh batasan REST. Pengembalian json saja belum cukup untuk menyebut sebuah API RESTful karena kita hanya memenuhi Batasan uniform interface (seluruh data yang keluar dalam bentuk JSON) namun kita tidak dapat memastikan bahwa Batasan lain telah dipenuhi. 
+PUT dan PATCH sama-sama digunakan untuk mengubah data, perbedaannya adalah pada kuantitas data yang diubah. PUT digunakan saat kita ingin mengubah seluruh data, sementara PATCH seperti arti Namanya yaitu menambal, dapat digunakan saat kita ingin mengubah sebagian data saja. Contoh: Kita punya data user berisi id, nama, email, dan password. Bila kita ingin mengubah nama dan emailnya kita menggunakan put. Bila hanya ingin mengubah namanya, kita dapat menggunakan patch.
+
+2. Serializer dapat digunakan untuk mengubah instance dan querySets dari Django ORM menjadi data Python standar (dictionary, list, dan tipe data primitif lainnya) yang nantinya dapat diubah menjadi format JSON (serialization) maupun sebaliknya (deseralization). Keuntungan menggunakan Serializer dibandingkan merakit dictionary secara manual adalah:
+- Serializer mempunyai fungsi pengecek validasi data, jadi data-data yang rusak dapat ditolak lebih cepat
+- Serializer dapat menghindari typo pembuatan dictionary manual.
+- Serializer dapat mengurangi kode validasi redundan. 
+
+3. Autentikasi adalah untuk mengidentifikasi siapa requesternya, sedangkan otorisasi adalah mengidentifikasi apakah requester tersebut punya akses untuk suatu hal. Untuk autentikasi, pertama DRF akan mengecek token yang dikirim oleh requester. Bila berhasil, maka akan diset sebagai request. user, bila tidak maka sebagai AnonymousUser. Requester harus dapat token dahulu saat login, lalu mengirimkan token tersebut di setiap request agar bisa diperiksa oleh server.Setelah terautentikasi, maka akan dilakukan pengecekan permission berdasarkan policy yang digunakan. 
+Pemeriksaan hak akses ini dilakukan di permission class untuk mencegah:
+- Manipulasi template: tombol di template HTML bisa dimunculkan dengan mengedit template di developer tools di browser.
+- Bisa dilakukan request langsung ke API, lalu kembalian data dari request tersebut dapat diubah/dimanipulasi (request POST).
+
+4. Permintaan yang mengubah data tetap memerlukan token CSRF ketika API memakai SessionAuthentication karena skema SessionAuthentication menggunakan Cookie. Token CSRF harus ada untuk mengecek bahwa memang benar request tersebut datang dari browser pengguna dan halaman website terkait untuk mencegah adanya serangan siber CSRF. Test yang pakai force_authenticate tidak cukup untuk membuktikan bahwa perlindungan CSRF berjalan karena force_authenticate() melewati seluruh alur keamanan yang asli: mematikan pemeriksaan CSRF hanya untuk keperluan testing. Maka, test akan selalu pass namun tidak bisa membuktikan bahwa token CSRF berfungsi dengan baik atau tidak.
+
+### Setup Mingguan: 
+Minggu ini saya melakukan: 
+- Membuat serializer dan permission untuk bagian Award
+- Menambahkan api views dan api urls untuk bagian Award
+- Mengintegrasikan perubahan dengan template Award
+- Membuat testing untuk implementasi DRF Award
+- Melakukan perbaikan fitur sorting Award dan Experience (new fix)
+
+### Penggunaan AI (AI Disclosure)
+Karena saya tidak familiar dengan Django REST Framework, maka AI saya gunakan untuk menjelaskan konsep dan apa yang sebenarnya diminta oleh soal tugas, menanyakan cara implementasi, dan teman debugging. Saya menjelaskan terlebih dulu apa yang sudah dilakukan, lalu meminta pendapat AI terkait implementasi/pemahaman saya. Contoh: saya sudah menambahkan tombol update di JS, namun saya masih bingung, bisa tolong jelaskan bagaimana cara DRF bekerja di balik layar agar bisa mengedit award?
+
+Strategi prompting yang saya gunakan adalah: 
+- **Meminta untuk menjelaskan:**: Saya menceritakan pemahaman saya atau mengirimkan hasil implementasi kode yang telah saya lakukan, lalu memintanya untuk menjelaskan logika implementasi bagian kode setelahnya yang masih belum saya pahami.
+- **Mengecek kebenaran implementasi:**: Saya memberi tahu ide implementasi saya pada suatu fitur, lalu meminta AI untuk memastikan apakah ide implementasi tersebut benar atau tidak. 
+- **Membantu debugging**: Saya mengerjakan dahulu sesuai dengan implementasi yang dipahami lalu bila terdapat error, saya meminta AI untuk menjelaskan penyebab error tersebut. 
+
+## Kekurangan AI: 
+Pada saat saya bertanya: apakah views.py berubah bila saya mengimplementasikan pengecekan permission. AI menjelaskan solusi bahwa views.py tidak akan berubah. Namun setelahnya, ia memberikan rekomendasi untuk melakukan perubahan pada views.py dengan menambahkan pengecekan permission. Hal ini terjadi karena AI kurang memahami konteks, dimana AI tidak membedakan pemisahan tanggung jawab antara views.py dengan api_views.py. 
+
+Untuk selengkapnya dapat dilihat di: https://share.gemini.google/zdqCSoTOlqgZ
 </div>
