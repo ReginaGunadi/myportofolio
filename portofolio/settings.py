@@ -71,7 +71,13 @@ REST_FRAMEWORK = {
 # Local development CORS settings for Flutter Web (Chrome)
 # Make sure to limit this on production, e.g.,
 # load CORS_ALLOW_ALL_ORIGINS value from .env set on the deployment environment
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = not PRODUCTION
+if PRODUCTION:
+    CORS_ALLOWED_ORIGINS = [
+        origin.strip()
+        for origin in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+        if origin.strip()
+    ]
 
 
 ROOT_URLCONF = 'portofolio.urls'
